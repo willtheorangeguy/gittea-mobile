@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/react": "~19.2.15",
-    "jest-expo": "^54.0.17",
+    "jest-expo": "^56.0.5",
     "typescript": "~6.0.3"
   },
   "private": true
