@@ -5,6 +5,25 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
+      # Skip patch bumps for everything (noise reduction).
       - dependency-name: "*"
         update-types:
           - "version-update:semver-patch"
+      # Expo SDK-managed packages: their versions are dictated by the installed
+      # Expo SDK's compatibility matrix. Let `npx expo install` and SDK upgrades
+      # control these — Dependabot bumping them independently drifts them off the
+      # matrix and breaks the native build (e.g. "PlatformConstants could not be
+      # found"). Listing a name with no update-types ignores ALL updates for it.
+      - dependency-name: "expo"
+      - dependency-name: "expo-*"
+      - dependency-name: "@expo/*"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
+      - dependency-name: "react-native"
+      - dependency-name: "react-native-*"
+      - dependency-name: "@react-native/*"
+      - dependency-name: "@react-native-community/*"
+      - dependency-name: "@react-native-async-storage/async-storage"
+      - dependency-name: "jest-expo"
+      - dependency-name: "@types/react"
+      - dependency-name: "@types/jest"
