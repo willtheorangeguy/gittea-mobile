@@ -45,3 +45,9 @@ yarn-error.*
 /android
 .bandit/
 .recall/
+
+# Native SwiftUI app build output and personal Xcode state
+.build/
+*.xcresult/
+xcuserdata/
+*.xcuserstate

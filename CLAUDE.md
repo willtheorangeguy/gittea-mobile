@@ -1,3 +1,9 @@
+# Native iOS application
+
+The primary iOS application is now the SwiftUI app in `Gitea/`, opened via root `Gitea.xcodeproj`. It talks directly to the Gitea API, including self-hosted servers. No npm or CocoaPods dependencies are needed. See `README.md` and `docs/ios-development.md`. Run `xcodebuild -project Gitea.xcodeproj -scheme Gitea -destination "platform=iOS Simulator,name=iPhone 16 Pro" -derivedDataPath .build/DerivedData test`. Regenerate explicit project references with `python3 scripts/generate-xcode-project.py` after adding Swift files.
+
+The following notes apply only to the preserved legacy Expo Mirror application.
+
 # CLAUDE.md
 
 ## Project Overview

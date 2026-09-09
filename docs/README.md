@@ -1,3 +1,5 @@
+> **Native iOS app:** Start with the [root README](../README.md) and [iOS development guide](ios-development.md). The documents below describe the preserved legacy Expo Gitea Mirror client.
+
 # Gitea Mirror Mobile — Documentation
 
 An Expo client for a self-hosted Gitea Mirror instance. Windows-friendly to develop, tested on

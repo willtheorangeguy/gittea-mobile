@@ -1,0 +1,44 @@
+name: Native iOS
+
+on:
+  push:
+    paths:
+      - 'Gitea/**'
+      - 'Gitea.xcodeproj/**'
+      - 'GiteaTests/**'
+      - 'GiteaUITests/**'
+      - '.github/workflows/ios.yml'
+  pull_request:
+    paths:
+      - 'Gitea/**'
+      - 'Gitea.xcodeproj/**'
+      - 'GiteaTests/**'
+      - 'GiteaUITests/**'
+      - '.github/workflows/ios.yml'
+
+jobs:
+  test:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Choose an available iPhone simulator
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          devices = json.loads(subprocess.check_output(['xcrun', 'simctl', 'list', 'devices', 'available', '-j']))['devices']
+          iphone = next(device for runtime, items in devices.items() if 'iOS' in runtime for device in items if device['name'].startswith('iPhone'))
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('GITEA_SIMULATOR_ID=' + iphone['udid'] + '\n')
+          PY
+      - name: Build and test
+        run: |
+          xcodebuild -project Gitea.xcodeproj -scheme Gitea \
+            -destination "platform=iOS Simulator,id=$GITEA_SIMULATOR_ID" \
+            -derivedDataPath .build/DerivedData -resultBundlePath .build/Tests.xcresult \
+            -parallel-testing-enabled NO test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iOS-test-results
+          path: .build/Tests.xcresult
