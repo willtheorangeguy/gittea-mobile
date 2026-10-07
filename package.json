@@ -38,6 +38,7 @@
   "private": true,
   "overrides": {
     "image-size": "2.0.4",
-    "uuid": "11.1.1"
+    "uuid": "11.1.1",
+    "argparse": "2.0.1"
   }
 }
